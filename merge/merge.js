@@ -132,4 +132,23 @@ const getProducttypes = (resultJson) => {
     // fs.writeFileSync("resultattr.json", resultattr);
   });
 };
+const facts = () => {
+  let results = [];
+  fs.readFile("./resultattr.json", "utf8", function (err, data) {
+    if (err) throw err;
+    let rawdatas = JSON.parse(data);
+    for (let attr of rawdatas) {
+      let res = {
+        facet: "variants.attributes." + attr + ".key",
+        type: "string",
+        option: "",
+        name: attr,
+      };
+      results.push(res);
+    }
+    let resultsdata = JSON.stringify(results);
+    fs.writeFileSync("facts.json", resultsdata);
+  });
+};
 convertor();
+facts();

@@ -192,16 +192,16 @@ const facts = () => {
     "woodfinish",
   ];
   let types = [
-    "table",
+    "Table",
     "chair",
     "desk",
-    "storage",
-    "light",
-    "stool",
-    "sofa",
-    "bed",
-    "bundle",
-    "gaming",
+    // "storage",
+    // "light",
+    // "stool",
+    // "sofa",
+    // "bed",
+    // "bundle",
+    // "gaming",
   ];
 
   // {
