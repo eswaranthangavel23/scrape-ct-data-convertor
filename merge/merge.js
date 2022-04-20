@@ -60,7 +60,7 @@ const convertor = async () => {
       };
       for (const [key, value] of Object.entries(data)) {
         if (types.includes(key.split("_")[0])) {
-          if (!attributes.includes(key)) attributes.push(key);
+          if (!attributes.includes(key)) attributes.push(key.replace("\n", ""));
           outData[key] = value;
         }
       }
