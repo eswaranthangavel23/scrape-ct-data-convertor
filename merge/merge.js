@@ -4,11 +4,11 @@ const convertor = async () => {
   let resultJson = [];
   let attributes = [];
   let types = ["desk", "chair", "Table"];
-  fs.readFile("./ESWARAN.json", "utf8", function (err, data) {
+  fs.readFile("./inputcsv.json", "utf8", function (err, data) {
     if (err) throw err;
-    let eswaran = JSON.parse(data);
+    let rawdatas = JSON.parse(data);
     let count = 1;
-    for (let data of eswaran) {
+    for (let data of rawdatas) {
       let outData = {
         productType: data["product-type"],
         variantId: data["varient-id"],
