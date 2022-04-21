@@ -3,7 +3,7 @@ var fs = require("fs");
 const convertor = async () => {
   let resultJson = [];
   let attributes = [];
-  let types = ["desk", "chair", "Table"];
+  let types = ["desk", "chair", "table", "sofa", "light", "storage"];
   fs.readFile("./inputcsv.json", "utf8", function (err, data) {
     if (err) throw err;
     let rawdatas = JSON.parse(data);
@@ -60,7 +60,7 @@ const convertor = async () => {
       };
       for (const [key, value] of Object.entries(data)) {
         if (types.includes(key.split("_")[0])) {
-          if (!attributes.includes(key)) attributes.push(key.replace("\n", ""));
+          if (!attributes.includes(key)) attributes.push(key);
           outData[key] = value;
         }
       }
@@ -101,7 +101,7 @@ const getProducttypes = (resultJson) => {
           }
         }
       }
-      let at = ["desk", "chair", "Table"];
+      let at = ["desk", "chair", "table", "light", "storage", "sofa"];
       let attrName = "";
       for (let a of at) {
         if (attr.split("_")[0] == a) attrName = attr.replace(a + "_", "");
@@ -130,6 +130,7 @@ const getProducttypes = (resultJson) => {
 
     // let resultattr = JSON.stringify(attributes);
     // fs.writeFileSync("resultattr.json", resultattr);
+    facts();
   });
 };
 const facts = () => {
@@ -151,4 +152,3 @@ const facts = () => {
   });
 };
 convertor();
-facts();
