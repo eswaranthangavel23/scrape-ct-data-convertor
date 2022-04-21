@@ -15,7 +15,7 @@ const convertor = async () => {
         sku: 100000 + count,
         prices: data.price,
         tax: "standard",
-        categories: "",
+        categories: data.categories,
         images: data.image,
         "name.en": data.name,
         "description.en": data.description,
