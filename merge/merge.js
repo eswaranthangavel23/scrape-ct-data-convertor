@@ -1,9 +1,8 @@
 var fs = require("fs");
-
+let types = ["desk", "chair", "table", "sofa", "light", "storage"];
 const convertor = async () => {
   let resultJson = [];
   let attributes = [];
-  let types = ["desk", "chair", "table", "sofa", "light", "storage"];
   fs.readFile("./inputcsv.json", "utf8", function (err, data) {
     if (err) throw err;
     let rawdatas = JSON.parse(data);
@@ -60,7 +59,10 @@ const convertor = async () => {
       };
       for (const [key, value] of Object.entries(data)) {
         if (types.includes(key.split("_")[0])) {
-          if (!attributes.includes(key)) attributes.push(key);
+          if (!attributes.includes(key)) {
+            console.log(key, types);
+            attributes.push(key);
+          }
           outData[key] = value;
         }
       }
@@ -101,7 +103,7 @@ const getProducttypes = (resultJson) => {
           }
         }
       }
-      let at = ["desk", "chair", "table", "light", "storage", "sofa"];
+      let at = types;
       let attrName = "";
       for (let a of at) {
         if (attr.split("_")[0] == a) attrName = attr.replace(a + "_", "");
@@ -125,11 +127,25 @@ const getProducttypes = (resultJson) => {
       };
       producttypes.push(result);
     }
-    let producttypesdata = JSON.stringify(producttypes);
+    let final_types = [];
+    for (let type of types) {
+      let attributes = [];
+      for (let type_attr of producttypes) {
+        if (type_attr.name.includes(type)) {
+          attributes.push(type_attr);
+        }
+      }
+      console.log(attributes.length);
+      final_types.push({
+        name: type,
+        key: type,
+        description: "Hermanmiller product for " + type + " product",
+        attributes: attributes,
+      });
+    }
+    let producttypesdata = JSON.stringify(final_types);
     fs.writeFileSync("producttypes.json", producttypesdata);
 
-    // let resultattr = JSON.stringify(attributes);
-    // fs.writeFileSync("resultattr.json", resultattr);
     facts();
   });
 };
